@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Media Pembelajaran Statistika</title>
+  <style>
+    /* Variabel CSS untuk konsistensi tema */
+    :root {
+      --primary: #3498db;
+      --secondary: #2ecc71;
+      --accent: #e74c3c;
+      --dark: #2c3e50;
+      --light: #ecf0f1;
+      --text: #333;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Reset dan gaya dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f9f9f9;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    /* Header styles */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    
+    header h1 {
+      margin-bottom: 1rem;
+      font-size: 2.2rem;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    nav button {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+    
+    nav button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    /* Main content styles */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .content-section {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light);
+    }
+    
+    /* Materi section styles */
+    .materi-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .materi-card {
+      background-color: var(--light);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .materi-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .materi-card h3 {
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    
+    .materi-card ul {
+      padding-left: 1.5rem;
+    }
+    
+    .materi-card li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .formula-box {
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+    }
+    
+    /* Latihan section styles */
+    #quiz {
+      margin-top: 1.5rem;
+    }
+    
+    #question {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+    }
+    
+    #choices {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .choice {
+      padding: 1rem;
+      background-color: var(--light);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .choice:hover {
+      background-color: #dfe6e9;
+    }
+    
+    .choice.selected {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    #quiz button {
+      background-color: var(--secondary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    #quiz button:hover {
+      background-color: #27ae60;
+      transform: translateY(-2px);
+    }
+    
+    /* Diagram container styles */
+    .diagram-container {
+      margin: 2rem 0;
+      padding: 1rem;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .diagram-title {
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .diagram {
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+    }
+    
+    /* Chart container styles */
+    .chart-container {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    
+    .chart {
+      width: 100%;
+      max-width: 500px;
+    }
+    
+    .chart-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .bar-label {
+      min-width: 100px;
+      text-align: right;
+    }
+    
+    .bar-value {
+      height: 30px;
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 10px;
+      color: white;
+      font-weight: bold;
+      min-width: 40px;
+    }
+    
+    .pie-chart {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #3498db 0% 30%,
+        #2ecc71 30% 55%,
+        #e74c3c 55% 80%,
+        #f39c12 80% 100%
+      );
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    .pie-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+    }
+    
+    /* Skor section styles */
+    #score {
+      font-size: 1.5rem;
+      text-align: center;
+      margin: 2rem 0;
+      color: var(--dark);
+    }
+    
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(var(--secondary) 0% var(--p), var(--light) var(--p) 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    
+    .score-circle::before {
+      content: attr(data-score);
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--dark);
+    }
+    
+    /* Footer styles */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--dark);
+      color: white;
+      margin-top: 2rem;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav button {
+        width: 100%;
+        max-width: 250px;
+      }
+      
+      .materi-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .chart-container {
+        flex-direction: column;
+      }
+      
+      .chart {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Statistika Kelas 12</h1>
+    <nav>
+      <button onclick="showSection('materi')">Materi</button>
+      <button onclick="showSection('latihan')">Latihan Soal</button>
+      <button onclick="showSection('skor')">Skor</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="materi" class="content-section">
+      <h2>Materi Statistika</h2>
+      <p><strong>Statistika</strong> adalah cabang matematika yang mempelajari cara mengumpulkan, mengolah, menyajikan, dan menganalisis data untuk mengambil kesimpulan.</p>
+      
+      <div class="materi-container">
+        <div class="materi-card">
+          <h3>Ukuran Pemusatan Data</h3>
+          <ul>
+            <li><strong>Mean (Rata-rata)</strong>: Jumlah semua data dibagi banyaknya data</li>
+            <div class="formula-box">Mean = Σx / n</div>
+            <li><strong>Median (Nilai Tengah)</strong>: Nilai yang membagi data menjadi dua bagian sama banyak</li>
+            <li><strong>Modus</strong>: Nilai yang paling sering muncul dalam data</li>
+          </ul>
+        </div>
+        
+        <div class="materi-card">
+          <h3>Ukuran Penyebaran Data</h3>
+          <ul>
+            <li><strong>Jangkauan (Range)</strong>: Selisih antara nilai tertinggi dan terendah</li>
+            <div class="formula-box">Jangkauan = xₘₐₓ - xₘᵢₙ</div>
+            <li><strong>Kuartil</strong>: Nilai yang membagi data menjadi 4 bagian sama banyak</li>
+            <li><strong>Simpangan Baku</strong>: Ukuran seberapa tersebar data dari nilai rata-ratanya</li>
+            <div class="formula-box">s = √(Σ(x - x̄)² / (n - 1))</div>
+          </ul>
+        </div>
+        
+        <div class="materi-card">
+          <h3>Jenis Data</h3>
+          <ul>
+            <li><strong>Data Tunggal</strong>: Data yang disajikan secara individual</li>
+            <li><strong>Data Kelompok</strong>: Data yang disajikan dalam interval kelas</li>
+            <li><strong>Data Kualitatif</strong>: Data yang berupa kategori atau atribut</li>
+            <li><strong>Data Kuantitatif</strong>: Data yang berupa angka atau nilai</li>
+          </ul>
+        </div>
+      </div>
+      
+      <h3>Penyajian Data dalam Diagram</h3>
+      <p>Data statistik dapat disajikan dalam berbagai bentuk diagram untuk memudahkan pemahaman, antara lain:</p>
+      
+      <div class="chart-container">
+        <div class="chart">
+          <div class="chart-title">Diagram Batang</div>
+          <div class="bar-chart">
+            <div class="bar">
+              <div class="bar-label">Matematika</div>
+              <div class="bar-value" style="width: 80%;">80</div>
+            </div>
+            <div class="bar">
+              <div class="bar-label">Fisika</div>
+              <div class="bar-value" style="width: 65%;">65</div>
+            </div>
+            <div class="bar">
+              <div class="bar-label">Kimia</div>
+              <div class="bar-value" style="width: 70%;">70</div>
+            </div>
+            <div class="bar">
+              <div class="bar-label">Biologi</div>
+              <div class="bar-value" style="width: 75%;">75</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chart">
+          <div class="chart-title">Diagram Lingkaran</div>
+          <div class="pie-chart"></div>
+          <div class="pie-legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #3498db;"></div>
+              <span>Matematika (30%)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #2ecc71;"></div>
+              <span>Fisika (25%)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #e74c3c;"></div>
+              <span>Kimia (25%)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #f39c12;"></div>
+              <span>Biologi (20%)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="latihan" class="content-section">
+      <h2>Latihan Soal</h2>
+      <div id="quiz">
+        <p id="question">Pilih jawaban yang benar dengan mengklik salah satu opsi.</p>
+        <div id="choices"></div>
+        <button onclick="nextQuestion()">Selanjutnya</button>
+      </div>
+    </section>
+
+    <section id="skor" class="content-section">
+      <h2>Skor Kamu</h2>
+      <p id="score-text">Belum ada skor. Silakan kerjakan latihan soal terlebih dahulu.</p>
+      <div id="score-visualization"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Media Belajar Statistika</p>
+  </footer>
+
+  <script>
+    // Variabel global
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedChoice = null;
+    
+    // Data soal kuis
+    const questions = [
+      {
+        question: "Apa yang dimaksud dengan median dalam statistika?",
+        choices: [
+          "Nilai rata-rata dari sekumpulan data",
+          "Nilai tengah dari data yang telah diurutkan",
+          "Nilai yang paling sering muncul",
+          "Selisih antara nilai tertinggi dan terendah"
+        ],
+        correct: 1
+      },
+      {
+        question: "Perhatikan diagram batang berikut yang menunjukkan nilai ulangan siswa. Berapakah modus dari data tersebut?",
+        choices: ["70", "75", "80", "85"],
+        correct: 2,
+        diagram: true,
+        diagramType: "bar",
+        diagramData: [
+          { label: "Siswa A", value: 70 },
+          { label: "Siswa B", value: 85 },
+          { label: "Siswa C", value: 80 },
+          { label: "Siswa D", value: 75 },
+          { label: "Siswa E", value: 80 },
+          { label: "Siswa F", value: 90 }
+        ]
+      },
+      {
+        question: "Simpangan baku merupakan ukuran untuk:",
+        choices: [
+          "Pemusatan data",
+          "Penyebaran data",
+          "Kemiringan data",
+          "Keteraturan data"
+        ],
+        correct: 1
+      },
+      {
+        question: "Perhatikan diagram lingkaran berikut yang menunjukkan persentase jenis film yang disukai siswa. Jika total siswa adalah 200 orang, berapa banyak siswa yang menyukai film drama?",
+        choices: ["40", "50", "60", "70"],
+        correct: 1,
+        diagram: true,
+        diagramType: "pie",
+        diagramData: [
+          { label: "Action", value: 30, color: "#3498db" },
+          { label: "Drama", value: 25, color: "#2ecc71" },
+          { label: "Komedi", value: 20, color: "#e74c3c" },
+          { label: "Romance", value: 15, color: "#f39c12" },
+          { label: "Horror", value: 10, color: "#9b59b6" }
+        ]
+      },
+      {
+        question: "Dari data berikut: 70, 75, 80, 85, 90. Berapakah jangkauannya?",
+        choices: ["15", "20", "25", "30"],
+        correct: 1
+      }
+    ];
+    
+    // Fungsi untuk menampilkan section tertentu
+    function showSection(sectionId) {
+      // Sembunyikan semua section
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.style.display = 'none';
+      });
+      
+      // Tampilkan section yang dipilih
+      document.getElementById(sectionId).style.display = 'block';
+      
+      // Jika section latihan ditampilkan, reset kuis
+      if (sectionId === 'latihan') {
+        resetQuiz();
+        displayQuestion();
+      }
+      
+      // Jika section skor ditampilkan, perbarui tampilan skor
+      if (sectionId === 'skor') {
+        updateScoreDisplay();
+      }
+    }
+    
+    // Tampilkan section materi secara default saat halaman dimuat
+    window.onload = function() {
+      showSection('materi');
+    };
+    
+    // Fungsi untuk menampilkan pertanyaan
+    function displayQuestion() {
+      const questionElement = document.getElementById('question');
+      const choicesElement = document.getElementById('choices');
+      
+      // Tampilkan pertanyaan
+      questionElement.textContent = `Soal ${currentQuestion + 1}: ${questions[currentQuestion].question}`;
+      
+      // Kosongkan pilihan sebelumnya
+      choicesElement.innerHTML = '';
+      
+      // Jika soal memiliki diagram, tampilkan diagram
+      if (questions[currentQuestion].diagram) {
+        const diagramContainer = document.createElement('div');
+        diagramContainer.className = 'diagram-container';
+        
+        if (questions[currentQuestion].diagramType === 'bar') {
+          // Buat diagram batang
+          const chartTitle = document.createElement('div');
+          chartTitle.className = 'chart-title';
+          chartTitle.textContent = 'Diagram Batang Nilai Ulangan Siswa';
+          diagramContainer.appendChild(chartTitle);
+          
+          const chart = document.createElement('div');
+          chart.className = 'bar-chart';
+          
+          questions[currentQuestion].diagramData.forEach(item => {
+            const bar = document.createElement('div');
+            bar.className = 'bar';
+            
+            const label = document.createElement('div');
+            label.className = 'bar-label';
+            label.textContent = item.label;
+            
+            const value = document.createElement('div');
+            value.className = 'bar-value';
+            value.textContent = item.value;
+            value.style.width = `${item.value}%`;
+            
+            bar.appendChild(label);
+            bar.appendChild(value);
+            chart.appendChild(bar);
+          });
+          
+          diagramContainer.appendChild(chart);
+        } else if (questions[currentQuestion].diagramType === 'pie') {
+          // Buat diagram lingkaran
+          const chartTitle = document.createElement('div');
+          chartTitle.className = 'chart-title';
+          chartTitle.textContent = 'Diagram Lingkaran Jenis Film yang Disukai';
+          diagramContainer.appendChild(chartTitle);
+          
+          const pieChart = document.createElement('div');
+          pieChart.className = 'pie-chart';
+          
+          // Buat conic gradient untuk diagram lingkaran
+          let gradientString = '';
+          let accumulatedPercentage = 0;
+          
+          questions[currentQuestion].diagramData.forEach((item, index) => {
+            const percentage = item.value;
+            gradientString += `${item.color} ${accumulatedPercentage}% ${accumulatedPercentage + percentage}%`;
+            if (index < questions[currentQuestion].diagramData.length - 1) {
+              gradientString += ', ';
+            }
+            accumulatedPercentage += percentage;
+          });
+          
+          pieChart.style.background = `conic-gradient(${gradientString})`;
+          diagramContainer.appendChild(pieChart);
+          
+          // Tambahkan legenda
+          const legend = document.createElement('div');
+          legend.className = 'pie-legend';
+          
+          questions[currentQuestion].diagramData.forEach(item => {
+            const legendItem = document.createElement('div');
+            legendItem.className = 'legend-item';
+            
+            const colorBox = document.createElement('div');
+            colorBox.className = 'legend-color';
+            colorBox.style.backgroundColor = item.color;
+            
+            const label = document.createElement('span');
+            label.textContent = `${item.label} (${item.value}%)`;
+            
+            legendItem.appendChild(colorBox);
+            legendItem.appendChild(label);
+            legend.appendChild(legendItem);
+          });
+          
+          diagramContainer.appendChild(legend);
+        }
+        
+        choicesElement.parentNode.insertBefore(diagramContainer, choicesElement);
+      }
+      
+      // Tambahkan pilihan jawaban
+      questions[currentQuestion].choices.forEach((choice, index) => {
+        const choiceElement = document.createElement('div');
+        choiceElement.classList.add('choice');
+        choiceElement.textContent = choice;
+        choiceElement.onclick = function() {
+          selectChoice(this, index);
+        };
+        choicesElement.appendChild(choiceElement);
+      });
+      
+      // Sembunyikan tombol selanjutnya jika ini adalah soal terakhir
+      document.querySelector('#quiz button').style.display = 
+        currentQuestion === questions.length - 1 ? 'none' : 'block';
+        
+      // Jika ini soal terakhir, ubah teks tombol
+      if (currentQuestion === questions.length - 1) {
+        const nextButton = document.querySelector('#quiz button');
+        nextButton.textContent = 'Selesai & Lihat Skor';
+        nextButton.style.display = 'block';
+      }
+    }
+    
+    // Fungsi untuk memilih jawaban
+    function selectChoice(element, choiceIndex) {
+      // Hapus seleksi sebelumnya
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.classList.remove('selected');
+      });
+      
+      // Tandai pilihan yang dipilih
+      element.classList.add('selected');
+      selectedChoice = choiceIndex;
+    }
+    
+    // Fungsi untuk beralih ke pertanyaan berikutnya
+    function nextQuestion() {
+      // Periksa jika jawaban benar
+      if (selectedChoice === questions[currentQuestion].correct) {
+        score++;
+      }
+      
+      // Reset pilihan
+      selectedChoice = null;
+      
+      // Lanjut ke pertanyaan berikutnya atau tampilkan skor jika sudah selesai
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        displayQuestion();
+      } else {
+        showSection('skor');
+      }
+    }
+    
+    // Fungsi untuk mereset kuis
+    function resetQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      selectedChoice = null;
+    }
+    
+    // Fungsi untuk memperbarui tampilan skor
+    function updateScoreDisplay() {
+      const scoreText = document.getElementById('score-text');
+      const scoreViz = document.getElementById('score-visualization');
+      
+      if (score === 0 && currentQuestion === 0) {
+        scoreText.textContent = "Belum ada skor. Silakan kerjakan latihan soal terlebih dahulu.";
+        scoreViz.innerHTML = '';
+        return;
+      }
+      
+      const percentage = (score / questions.length) * 100;
+      scoreText.textContent = `Kamu menjawab benar ${score} dari ${questions.length} soal (${percentage.toFixed(0)}%)`;
+      
+      // Buat visualisasi skor
+      scoreViz.innerHTML = `
+        <div class="score-circle" data-score="${score}/${questions.length}" style="--p: ${percentage}%"></div>
+      `;
+      
+      // Tambahkan pesan berdasarkan performa
+      const message = document.createElement('p');
+      message.style.textAlign = 'center';
+      message.style.marginTop = '1.5rem';
+      
+      if (percentage >= 80) {
+        message.textContent = 'Excellent! Kamu menguasai materi statistika dengan baik.';
+        message.style.color = '#27ae60';
+      } else if (percentage >= 60) {
+        message.textContent = 'Bagus! Namun masih perlu sedikit belajar lagi.';
+        message.style.color = '#f39c12';
+      } else {
+        message.textContent = 'Jangan menyerah! Pelajari lagi materinya dan coba lagi.';
+        message.style.color = '#e74c3c';
+      }
+      
+      scoreViz.appendChild(message);
+    }
+  </script>
+</body>
+</html>
